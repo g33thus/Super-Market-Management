@@ -1,14 +1,10 @@
 ﻿using CoreBussiness;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UseCases.DataStorePluginInterfaces;
+using UseCases.CategoryUseCase.Interfaces;
 
-namespace UseCases
+namespace UseCases.CategoryUseCase
 {
-    public class AddCategoryUseCase
+    public class AddCategoryUseCase : IAddCategoryUseCase
     {
         private readonly ICategoryRepository categoryRepository;
         public AddCategoryUseCase(ICategoryRepository categoryRepository)

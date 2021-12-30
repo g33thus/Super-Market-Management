@@ -1,21 +1,21 @@
 ﻿using CoreBussiness;
-using System;
 using System.Collections.Generic;
 using UseCases.DataStorePluginInterfaces;
+using UseCases.CategoryUseCase.Interfaces;
 
-namespace UseCases
+namespace UseCases.CategoryUseCase
 {
-    public class ViewCategoriesUseCase: IViewCategoriesUseCase
+    public class ViewCategoryUseCase : IViewCategoryUseCase
     {
         private readonly ICategoryRepository categoryRepository;
 
-        public ViewCategoriesUseCase(ICategoryRepository categoryRepository)
+        public ViewCategoryUseCase(ICategoryRepository categoryRepository)
         {
             this.categoryRepository = categoryRepository;
         }
         public IEnumerable<Category> Execute()
         {
-            return categoryRepository.GetCategories();
+            return categoryRepository.GetCategory();
 
         }
     }

@@ -1,18 +1,15 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Plugins.DataStore.InMemory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UseCases;
 using UseCases.DataStorePluginInterfaces;
+using UseCases.CategoryUseCase.Interfaces;
 using WebApp.Data;
+using UseCases.CategoryUseCase;
+using UseCases.ProductUseCase;
+using UseCases.ProductUseCase.Interfaces;
 
 namespace WebApp
 {
@@ -33,7 +30,18 @@ namespace WebApp
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
-            services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
+            services.AddTransient<IViewCategoryUseCase, ViewCategoryUseCase>();
+            services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
+            services.AddTransient<IEditCategoryUseCase, EditCategoryUseCase>();
+            services.AddTransient<IGetCategoryByIdUseCase, GetCategoryByIdUseCase>();
+            services.AddTransient<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
+
+            services.AddScoped<IProductRepository, ProductInMemoryRepository>();
+            services.AddTransient<IViewProductUseCase, ViewProductUseCase>();
+            services.AddTransient<IAddProductUseCase, AddProductUseCase>();
+            services.AddTransient<IEditProductUseCase, EditProductUseCase>();
+            services.AddTransient<IGetProductByIdUseCase, GetProductByIdUseCase>();
+            services.AddTransient<IDeleteProductUseCase, DeleteProductUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

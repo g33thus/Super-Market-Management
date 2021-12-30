@@ -1,6 +1,8 @@
-﻿@page "/addCategory"
+﻿@page "/deleteCategory/{categoryId}"
 @inject NavigationManager NavigationManager
+@inject UseCases.CategoryUseCase.Interfaces.IGetCategoryByIdUseCase GetCategoryByIdUseCase
 @inject UseCases.CategoryUseCase.Interfaces.IAddCategoryUseCase AddCategoryUsecase
+@inject UseCases.CategoryUseCase.Interfaces.IEditCategoryUseCase EditCategoryUsecase
 
 <h3>AddCategoryComponent</h3>
 
@@ -22,13 +24,16 @@
             </InputText>
         </div>
 
-        <button type="submit" class="btn btn-primary">Add Category</button>
-        <button type="submit" class="btn btn-primary" @onclick="onClickCancel">Go Back</button>
+        <button type="submit" class="btn btn-primary"> Add Category</button>
 
     </EditForm>
 }
 
 @code {
+
+    [Parameter]
+    public string CategoryId { get; set; }
+
     private Category category;
 
     protected override void OnInitialized()
@@ -37,14 +42,19 @@
         category = new Category();
     }
 
-    private void onValidSubmit()
+    protected override void OnParametersSet()
     {
-        AddCategoryUsecase.Execute(category);
-        NavigationManager.NavigateTo("/categories");
+        base.OnParametersSet();
+        if (int.TryParse(CategoryId, out int categoryId))
+        {
+            this.category = GetCategoryByIdUseCase.Execute(categoryId);
+        }
+
     }
 
-    private void onClickCancel()
+    private void onValidSubmit()
     {
+        EditCategoryUsecase.Execute(this.category);
         NavigationManager.NavigateTo("/categories");
 
     }
