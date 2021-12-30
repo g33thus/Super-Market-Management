@@ -2,36 +2,44 @@
 @inject UseCases.ProductUseCase.Interfaces.IViewProductUseCase ViewProductUseCase;
 @inject NavigationManager NavigationManager
 @inject UseCases.ProductUseCase.Interfaces.IDeleteProductUseCase DeleteProductUseCase;
-
+@inject UseCases.CategoryUseCase.Interfaces.IGetCategoryByIdUseCase GetCategoryByIdUseCase;
 
 
 <h3>Manage Products</h3>
+<br/>
 
-@if (Products != null)
+@if (products != null)
 {
-    <table>
+    <table  class ="table">
         <thead>
             <tr>
                 <th>
                     Name
                 </th>
                 <th>
-                    Description
+                    Category
+                </th>
+                 <th>
+                    Quantity
+                </th>
+                 <th>
+                    Price
                 </th>
                 <th>
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var Product in Products)
+            @foreach (var product in products)
             {
                 <tr>
-                    <td>@Product.Name</td>
-                     <td>@Product.Quantity</td>
-                      <td>@Product.Price</td>
+                    <td>@product.Name</td>
+                    <td>@GetCategoryByIdUseCase.Execute(product.CategoryId.Value)?.Name</td>
+                    <td>@product.Quantity</td>
+                    <td>@Math.Round(product.Price.Value,2)</td>
                     <td>
-                        <button type="button" @onclick="@(()=>EditProduct(Product))" class="btn btn-primary">Edit</button>
-                        <button type="button" @onclick="@(()=>DeleteProduct(Product.Id))" class="btn btn-primary">Delete</button>
+                        <button type="button" @onclick="@(()=>EditProduct(product))" class="btn btn-primary">Edit</button>
+                        <button type="button" @onclick="@(()=>DeleteProduct(product.Id))" class="btn btn-primary">Delete</button>
                     </td>
                 </tr>
 
@@ -45,7 +53,7 @@
 
 
 @code {
-    private List<Product> Products;
+    private List<Product> products;
 
     protected override void OnInitialized()
     {
@@ -67,7 +75,7 @@
         LoadProduct();
     }
     private void LoadProduct()
-    { 
-        Products = ViewProductUseCase.Execute()?.ToList();        
+    {
+        products = ViewProductUseCase.Execute()?.ToList();
     }
 }

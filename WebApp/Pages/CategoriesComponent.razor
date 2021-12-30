@@ -6,10 +6,10 @@
 
 
 <h3>Manage Category</h3>
-
-@if (Category != null)
+<br/>
+@if (categories != null)
 {
-    <table>
+    <table  class ="table">
         <thead>
             <tr>
                 <th>
@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var category in Category)
+            @foreach (var category in categories)
             {
                 <tr>
                     <td>@category.Name</td>
@@ -44,7 +44,7 @@
 
 
 @code {
-    private List<Category> Category;
+    private List<Category> categories;
 
     protected override void OnInitialized()
     {
@@ -67,6 +67,6 @@
     }
     private void LoadCategory()
     { 
-        Category = ViewCategoryUseCase.Execute()?.ToList();        
+        categories = ViewCategoryUseCase.Execute()?.ToList();        
     }
 }

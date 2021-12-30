@@ -1,30 +1,26 @@
-﻿@page "/deleteCategory/{categoryId}"
+﻿@page "/deleteProduct/{productId}"
 @inject NavigationManager NavigationManager
-@inject UseCases.CategoryUseCase.Interfaces.IGetCategoryByIdUseCase GetCategoryByIdUseCase
-@inject UseCases.CategoryUseCase.Interfaces.IAddCategoryUseCase AddCategoryUsecase
-@inject UseCases.CategoryUseCase.Interfaces.IEditCategoryUseCase EditCategoryUsecase
+@inject UseCases.ProductUseCase.Interfaces.IGetProductByIdUseCase GetProductByIdUseCase
+@inject UseCases.ProductUseCase.Interfaces.IAddProductUseCase AddProductUsecase
+@inject UseCases.ProductUseCase.Interfaces.IEditProductUseCase EditProductUsecase
 
-<h3>AddCategoryComponent</h3>
+<h3>AddProductComponent</h3>
 
 @if (true)
 {
-    <EditForm Model="category" OnValidSubmit="onValidSubmit">
+    <EditForm Model="product" OnValidSubmit="onValidSubmit">
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <ValidationSummary></ValidationSummary>
 
         <div class="form-group">
             <label for="name">Name</label>
-            <InputText id="name" @bind-Value="category.Name" class="form-control">
+            <InputText id="name" @bind-Value="product.Name" class="form-control">
             </InputText>
         </div>
 
-        <div class="form-group">
-            <label for="name">Description</label>
-            <InputText id="description" @bind-Value="category.Description" class="form-control">
-            </InputText>
-        </div>
+        
 
-        <button type="submit" class="btn btn-primary"> Add Category</button>
+        <button type="submit" class="btn btn-primary"> Add Product</button>
 
     </EditForm>
 }
@@ -32,30 +28,30 @@
 @code {
 
     [Parameter]
-    public string CategoryId { get; set; }
+    public string ProductId { get; set; }
 
-    private Category category;
+    private Product product;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        category = new Category();
+        product = new Product();
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        if (int.TryParse(CategoryId, out int categoryId))
+        if (int.TryParse(ProductId, out int productId))
         {
-            this.category = GetCategoryByIdUseCase.Execute(categoryId);
+            this.product = GetProductByIdUseCase.Execute(productId);
         }
 
     }
 
     private void onValidSubmit()
     {
-        EditCategoryUsecase.Execute(this.category);
-        NavigationManager.NavigateTo("/Category");
+        EditProductUsecase.Execute(this.product);
+        NavigationManager.NavigateTo("/products");
 
     }
 }
