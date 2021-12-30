@@ -30,6 +30,7 @@
                     <td>@category.Description</td>
                     <td>
                         <button type="button" @onclick="@(()=>EditCategory(category))" class="btn btn-primary">Edit</button>
+                        &nbsp;
                         <button type="button" @onclick="@(()=>DeleteCategory(category.Id))" class="btn btn-primary">Delete</button>
                     </td>
                 </tr>

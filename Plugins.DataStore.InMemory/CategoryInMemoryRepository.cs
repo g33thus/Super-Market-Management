@@ -14,9 +14,9 @@ namespace Plugins.DataStore.InMemory
             Category = new List<Category>()
             {
                 new Category() { Id=1,Name = "Meat", Description="Meat"},
-                 new Category() { Id=2,Name = "Egg", Description="Egg"},
-                  new Category() { Id=3,Name = "Milk", Description="Milk"},
-                new Category() { Id=4,Name = "Fish", Description="Fish"},
+                 new Category() { Id=2,Name = "Vegetables", Description="Vegetables"},
+                  new Category() { Id=3,Name = "Juice", Description="Juice"},
+                new Category() { Id=4,Name = "Fruits", Description="Fruits"},
                  new Category() { Id=5,Name = "Rice", Description="Rice"}
             };
 

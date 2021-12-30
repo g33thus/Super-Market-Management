@@ -3,6 +3,7 @@
 @inject UseCases.ProductUseCase.Interfaces.IGetProductByIdUseCase GetProductByIdUseCase
 @inject UseCases.ProductUseCase.Interfaces.IAddProductUseCase AddProductUsecase
 @inject UseCases.ProductUseCase.Interfaces.IEditProductUseCase EditProductUsecase
+@inject UseCases.CategoryUseCase.Interfaces.IViewCategoryUseCase ViewCategoryUseCase;
 
 <h3>AddProductComponent</h3>
 
@@ -18,10 +19,29 @@
             </InputText>
         </div>
 
-       
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" @bind="product.CategoryId" class="form-control">
+                <option value="selected"></option>
+                @foreach (var category in categories)
+               {
+                   <option value= "@category.Id"> @category.Name</option>
+               }
 
-        <button type="submit" class="btn btn-primary"> Add Product</button>
+            </select>
+        </div>
+         <div class="form-group">
+            <label for="price">Price</label>
+            <InputNumber id="price" @bind-Value="product.Price" @bind-Value:format="F2" class="form-control">
+            </InputNumber>
+        </div> <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <InputNumber id="quantity" @bind-Value="product.Quantity" class="form-control">
+            </InputNumber>
+        </div>
 
+        <button type="submit" class="btn btn-primary"> Edit Product</button>
+        <button type="submit" class="btn btn-primary" @onclick="onClickCancel">Go Back</button>
     </EditForm>
 }
 
@@ -30,11 +50,13 @@
     [Parameter]
     public string ProductId { get; set; }
 
+    private List<Category> categories;
     private Product product;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        LoadCategory();
         product = new Product();
     }
 
@@ -48,10 +70,22 @@
 
     }
 
+    private void LoadCategory()
+    { 
+        categories = ViewCategoryUseCase.Execute()?.ToList();        
+    }
+
     private void onValidSubmit()
     {
         EditProductUsecase.Execute(this.product);
         NavigationManager.NavigateTo("/products");
 
     }
+
+     private void onClickCancel()
+    {
+        NavigationManager.NavigateTo("/products");
+
+    }
+
 }

@@ -39,7 +39,8 @@
                     <td>@Math.Round(product.Price.Value,2)</td>
                     <td>
                         <button type="button" @onclick="@(()=>EditProduct(product))" class="btn btn-primary">Edit</button>
-                        <button type="button" @onclick="@(()=>DeleteProduct(product.Id))" class="btn btn-primary">Delete</button>
+                          &nbsp;
+                          <button type="button" @onclick="@(()=>DeleteProduct(product.Id))" class="btn btn-primary">Delete</button>
                     </td>
                 </tr>
 

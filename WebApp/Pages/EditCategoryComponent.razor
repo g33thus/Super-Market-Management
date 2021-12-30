@@ -24,8 +24,8 @@
             </InputText>
         </div>
 
-        <button type="submit" class="btn btn-primary"> Add Category</button>
-
+        <button type="submit" class="btn btn-primary"> Edit Category</button>
+        <button type="submit" class="btn btn-primary" @onclick="onClickCancel">Go Back</button>
     </EditForm>
 }
 
@@ -55,6 +55,12 @@
     private void onValidSubmit()
     {
         EditCategoryUsecase.Execute(this.category);
+        NavigationManager.NavigateTo("/categories");
+
+    }
+
+     private void onClickCancel()
+    {
         NavigationManager.NavigateTo("/categories");
 
     }

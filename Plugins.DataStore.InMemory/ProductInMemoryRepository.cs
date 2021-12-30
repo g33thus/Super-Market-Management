@@ -23,24 +23,27 @@ namespace Plugins.DataStore.InMemory
 
         }
 
-        public void AddProduct(Product Product)
+        public void AddProduct(Product product)
         {
-            if (products.Any(x => x.Name.Equals(Product.Name, StringComparison.OrdinalIgnoreCase))) return;
+            if (products.Any(x => x.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase))) return;
 
             if (products != null && products.Count > 0)
             {
-                Product.Id = products.Max(x => x.Id) + 1;
+                product.Id = products.Max(x => x.Id) + 1;
             }
-            else { Product.Id = 1; }
-            products.Add(Product);
+            else { product.Id = 1; }
+            products.Add(product);
         }
 
-        public void UpdateProduct(Product Product)
+        public void UpdateProduct(Product product)
         {
-            var ProductToUpdate = products?.FirstOrDefault(x => x.Id == Product.Id);
-            if (ProductToUpdate != null)
+            var productToUpdate = products?.FirstOrDefault(x => x.Id == product.Id);
+            if (productToUpdate != null)
             {
-                ProductToUpdate.Name = Product.Name;
+                productToUpdate.Name = product.Name;
+                productToUpdate.Quantity = product.Quantity;
+                productToUpdate.Price = product.Price;
+                productToUpdate.CategoryId = product.CategoryId;
             }
         }
 
@@ -54,9 +57,9 @@ namespace Plugins.DataStore.InMemory
             return products?.FirstOrDefault(x => x.Id == id);
         }
 
-        public void DeleteProduct(int ProductId)
+        public void DeleteProduct(int productId)
         {
-            products?.Remove(GetProduct(ProductId));
+            products?.Remove(GetProduct(productId));
         }
     }
 }
